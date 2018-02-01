@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc  
+    	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!-- 基于注解的处理器，配置自动扫描的包,这个是适合HelloWorld类配置的-->
+	<context:component-scan base-package="com.mybatis.action"></context:component-scan>
+	<mvc:annotation-driven/>
+
+	<!-- 配置视图解析器：如何把方法返回值解析为实际的物理视图 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value=""></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 上传文件的时候使用的视图解析，如果有文件上传才需要配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--文件总大小不能大于1mb=1024*1024 -->
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
+
+	<!-- 静态资源的配置 -->
+	<mvc:resources location="/statics/js/" mapping="/js/**" />
+	<mvc:resources location="/statics/css/" mapping="/css/**" />
+	<mvc:resources location="/statics/images/" mapping="/images/**" />
+	
+</beans>
+
+
+
